@@ -1,6 +1,7 @@
+import { PageRouter } from './router';
 
 function App() {
-  return <div>Hello</div>
+  return <PageRouter />;
 }
 
 export default App;
