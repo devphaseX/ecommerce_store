@@ -13,6 +13,7 @@ import {
   Signup,
 } from '../pages';
 import { Layout } from '../components/Layout';
+import { AuthGrantRoute } from './restricted/AuthGrantRoute';
 
 const router = createBrowserRouter([
   {
@@ -20,8 +21,13 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/home', element: <Navigate to="/" /> },
-      { path: '/login', element: <Login /> },
-      { path: '/signup', element: <Signup /> },
+      {
+        element: <AuthGrantRoute />,
+        children: [
+          { path: '/login', element: <Login /> },
+          { path: '/signup', element: <Signup /> },
+        ],
+      },
       {
         path: '/product',
         children: [
