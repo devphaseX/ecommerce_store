@@ -76,6 +76,7 @@ ul {
 a {
   text-decoration: none;
   color: unset;
+  font: inherit;
 }
 
 img {
@@ -83,6 +84,25 @@ img {
   width: 100%;
 }
 
+button {
+  border: none;
+  font: inherit;
+}
+
+input {
+  outline: none;
+}
+
 section {
   padding: 60px 0;
+}
+
+.section-width {
+  width: var(--layout-width);
+  margin-inline: auto;
+}
+
+.section-title {
+  color: var(--primary-color);
+  font-weight: 600;
 }
