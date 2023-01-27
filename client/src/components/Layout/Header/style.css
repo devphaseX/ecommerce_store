@@ -1,12 +1,14 @@
-header.nav {
+.nav {
   height: 70px;
-  /* line-height: 70px; */
 }
 
 .nav__wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  max-width: var(--layout-width);
+  margin-inline: auto;
+  height: 100%;
 }
 
 .logo {
@@ -36,6 +38,11 @@ header.nav {
   color: var(--primary-color);
   font-weight: 500;
   cursor: pointer;
+  text-transform: capitalize;
+}
+
+.nav__item a.nav__active {
+  font-weight: 700;
 }
 
 .nav__icons {
@@ -45,8 +52,30 @@ header.nav {
   color: var(--primary-color);
 }
 
+.nav__icons .action-wrapper {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -40%;
+  right: -30%;
+  content: '';
+  font-size: 0.7rem;
+  color: #fff;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  font-weight: 600;
+  z-index: 10;
+  height: 1.2rem;
+  width: 1.2rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .nav__icons .action-wrapper span i {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   color: currentColor;
 }
 
@@ -55,8 +84,22 @@ header.nav {
   height: 30px;
 }
 
+.nav__icons i,
+.nav__icons img {
+  cursor: pointer;
+}
+
+.nav__icons :is(i, img) {
+  cursor: pointer;
+}
+
+.cart__icon--image {
+  transform: scale(1.2);
+}
+
 .mobile__menu {
   font-size: 1.3rem;
   color: var(--primary-color);
   margin-bottom: 0;
+  display: none;
 }

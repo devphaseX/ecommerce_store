@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import logo from '../../../assets/images/eco-logo.png';
 import user_profile from '../../../assets/images/user-icon.png';
 import './style.css';
+import { pathLink } from '../../../router/route';
 
 const Header = () => {
   return (
@@ -16,15 +17,20 @@ const Header = () => {
         </div>
         <nav className="main-link-navigation">
           <ul className="menu">
-            <li className="nav__item">
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li className="nav__item">
-              <NavLink to="/product">Shop</NavLink>
-            </li>
-            <li className="nav__item">
-              <NavLink to="/chart">Chart</NavLink>
-            </li>
+            {[pathLink.home, pathLink.product, pathLink.cart].map(
+              ({ name, path }, i) => (
+                <li className="nav__item" key={`${i}{${name}`}>
+                  <NavLink
+                    to={path}
+                    className={({ isActive }) =>
+                      isActive ? 'nav__active' : ''
+                    }
+                  >
+                    {name}
+                  </NavLink>
+                </li>
+              )
+            )}
           </ul>
         </nav>
 
@@ -32,16 +38,31 @@ const Header = () => {
           <div className="action-wrapper">
             <span className="fav__icon">
               <i className="ri-heart-line"></i>
+              <span className="badge">1</span>
             </span>
           </div>
           <div className="action-wrapper">
             <span className="cart__icon">
               <i className="ri-shopping-bag-line"></i>
+              <span className="badge">10</span>
             </span>
           </div>
 
           <div className="action-wrapper">
-            <span className="cart__icon">
+            <span
+              onMouseDown={({ target }) =>
+                (target as HTMLSpanElement).classList.toggle(
+                  'cart__icon--image',
+                  true
+                )
+              }
+              onMouseUp={({ target }) =>
+                (target as HTMLSpanElement).classList.toggle(
+                  'cart__icon--image',
+                  false
+                )
+              }
+            >
               <img src={user_profile} alt="profile image" />
             </span>
           </div>

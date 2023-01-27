@@ -1,5 +1,11 @@
+import { Helmet } from '../components/Helmet';
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <Helmet pageTitle="Multimart - Home">
+      <div>Home</div>
+    </Helmet>
+  );
 };
 
 export { Home };
