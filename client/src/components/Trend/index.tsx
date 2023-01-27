@@ -1,5 +1,6 @@
 import './style.css';
 import { ProductList } from '../ProductList';
+import products from '../../assets/data/products';
 
 const Trend = () => {
   return (
@@ -8,6 +9,9 @@ const Trend = () => {
         <div className="trend__row">
           <div>
             <h2 className="section__title trend-title">Trending Products</h2>
+          </div>
+          <div className="trend__products">
+            <ProductList productsData={products} />
           </div>
         </div>
       </div>

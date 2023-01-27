@@ -23,14 +23,7 @@ const Heroes = () => {
               <div>
                 <button
                   className="buy_button"
-                  onMouseDown={({ target }) =>
-                    ((target as HTMLButtonElement).style.transform =
-                      'scale(1.2)')
-                  }
-                  onMouseUp={({ target }) =>
-                    ((target as HTMLButtonElement).style.transform = 'scale(1)')
-                  }
-                  onClick={() => navigate('/product')}
+                  onTransitionEnd={() => navigate('/product')}
                 >
                   Shop now
                 </button>

@@ -1,27 +1,23 @@
+import { useMemo } from 'react';
 import { ProductCard } from './ProductCard';
-import type { InferUserReview, ProductData } from './type';
+import type { ProductData } from './type';
 
-type UserReview = InferUserReview<ProductData>;
 type ProductListProps = {
   productsData: Array<ProductData>;
 };
 const ProductList = ({ productsData }: ProductListProps) => {
+  const sortedProduct = useMemo(
+    () => productsData.sort((a, b) => b.avgRating - a.avgRating),
+    [productsData, productsData.length]
+  );
+
   return (
     <>
-      {productsData
-        .sort(
-          (a, b) =>
-            getReviewAggregate(b.reviews) - getReviewAggregate(a.reviews)
-        )
-        .slice(0, 4)
-        .map((productData) => (
-          <ProductCard key={productData.id} data={productData} />
-        ))}
+      {sortedProduct.slice(0, 4).map((productData) => (
+        <ProductCard key={productData.id} data={productData} />
+      ))}
     </>
   );
 };
-
-const getReviewAggregate = (reviews: Array<UserReview>) =>
-  reviews.reduce((curTotalRate, { rating }) => curTotalRate + rating, 0);
 
 export { ProductList };
