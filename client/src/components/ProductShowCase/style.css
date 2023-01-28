@@ -1,0 +1,15 @@
+.showcase {
+  margin-bottom: 2rem;
+}
+
+.showcase-title {
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.showcase__products {
+  display: flex;
+  column-gap: 2rem;
+  row-gap: 3rem;
+  flex-wrap: wrap;
+}

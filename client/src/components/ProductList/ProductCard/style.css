@@ -1,5 +1,6 @@
 .product__item {
-  width: 312px;
+  min-width: 278px;
+  width: 278px;
   display: inline-flex;
   flex-direction: column;
   cursor: pointer;
@@ -7,6 +8,7 @@
 
 .product__img {
   width: 100%;
+  height: 351px;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
