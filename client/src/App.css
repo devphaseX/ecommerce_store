@@ -106,3 +106,13 @@ input {
   color: var(--primary-color);
   font-weight: 600;
 }
+
+.section-block-padding {
+  padding-block: 60px;
+}
+
+@supports not (padding-bottom: 0) {
+  .section-block-padding {
+    padding: 60px 0;
+  }
+}

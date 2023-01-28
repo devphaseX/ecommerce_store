@@ -1,0 +1,27 @@
+.clock__wrapper,
+.clock__data {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+}
+
+.clock__info > h1 {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.clock__info > h5 {
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.time-delimiter {
+  font-size: 16px;
+}
+
+.clock__wrapper .clock__data:last-child span {
+  display: none;
+}
