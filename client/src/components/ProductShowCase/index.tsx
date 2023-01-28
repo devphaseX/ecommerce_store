@@ -10,7 +10,7 @@ interface ProductShowCaseProps {
 
 const ProductShowCase = ({ title, products }: ProductShowCaseProps) => {
   return (
-    <section className="showcase">
+    <section className="showcase section-block-padding">
       <div className="showcase__container section-width">
         <div className="showcase__row">
           <div>
