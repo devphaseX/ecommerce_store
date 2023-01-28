@@ -93,9 +93,9 @@ input {
   outline: none;
 }
 
-section {
+/* section {
   padding: 60px 0;
-}
+} */
 
 .section-width {
   width: var(--layout-width);
