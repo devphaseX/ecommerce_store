@@ -29,13 +29,14 @@
 }
 
 .top-content__title {
-  font-size: 18px;
+  font-size: 14px;
   color: #fff;
   margin-bottom: 8px;
+  font-weight: 600;
 }
 
 .top-content__type {
-  font-size: 24px;
+  font-size: 16px;
   color: #fff;
   margin-bottom: 12px;
 }
@@ -49,8 +50,6 @@
   color: currentColor;
   font-weight: 600;
   display: inline-block;
-  width: 100%;
-  height: 100%;
 }
 
 .store__button::active {
