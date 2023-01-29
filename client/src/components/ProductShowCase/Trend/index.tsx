@@ -11,6 +11,7 @@ const Trend = () => {
   return (
     <ProductShowCase
       title="Trending products"
+      type="all"
       products={sortedProduct.slice(0, 4)}
     />
   );
