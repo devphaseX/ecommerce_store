@@ -3,12 +3,9 @@
 }
 
 .service__row {
-  display: flex;
-  column-gap: 2rem;
-}
-
-.service__item-wrapper {
-  margin-bottom: 4rem;
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .service__item-wrapper:hover {
@@ -43,4 +40,42 @@
   font-size: 0.9rem;
   margin-top: 5px;
   color: #222;
+}
+
+@media only screen and (max-width: 992px) {
+  .service__item span i {
+    font-size: 1.8rem;
+    padding: 4px;
+  }
+
+  .service__item h3 {
+    font-size: 1rem;
+  }
+
+  .service__item {
+    padding: 10px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .service {
+    padding-block: 40px;
+  }
+
+  .service__row {
+    gap: 1.5rem;
+  }
+
+  .service__item span i {
+    font-size: 1.8rem;
+    padding: 4px;
+  }
+
+  .service__item h3 {
+    font-size: 1rem;
+  }
+
+  .service__item {
+    padding: 10px;
+  }
 }

@@ -55,3 +55,25 @@
 .store__button::active {
   transform: scale(1.2);
 }
+
+@media only screen and (max-width: 992px) {
+  .clock_top-content {
+    text-align: center;
+  }
+
+  .clock_top-content h4 {
+    font-size: 0.9rem;
+  }
+
+  .top-content__type {
+    font-size: 1rem;
+  }
+
+  .clock__info {
+    text-align: center;
+  }
+
+  .offer_col-image {
+    display: none;
+  }
+}
