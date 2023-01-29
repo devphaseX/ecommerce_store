@@ -1,6 +1,4 @@
 .product__item {
-  min-width: 278px;
-  width: 278px;
   display: inline-flex;
   flex-direction: column;
   cursor: pointer;
@@ -18,7 +16,9 @@
 }
 
 .product__img img {
-  object-fit: cover;
+  display: block;
+  object-fit: contain;
+  height: 100%;
 }
 
 .product__info h3 {
@@ -62,4 +62,20 @@
 
 .product__card-bottom span.inc-add-button:active {
   transform: scale(1.1);
+}
+
+@media only screen and (max-width: 992px) {
+  .product__info h3 a {
+    font-size: 1.1rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .product__info h3 a {
+    font-size: 1rem;
+  }
+
+  .product__card-bottom span i {
+    font-size: 1rem;
+  }
 }

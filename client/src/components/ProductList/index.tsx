@@ -13,11 +13,5 @@ const ProductList = ({ productsData }: ProductListProps) => {
     </>
   );
 };
-/* 
-  const sortedProduct = useMemo(
-    () => productsData.sort((a, b) => b.avgRating - a.avgRating),
-    [productsData, productsData.length]
-  );
-*/
 
 export { ProductList };
