@@ -3,7 +3,13 @@ import { ProductShowCase } from '../';
 import products from '../../../assets/data/products';
 
 const BestSales = () => {
-  return <ProductShowCase title="Best Sales" products={products.slice(-8)} />;
+  return (
+    <ProductShowCase
+      title="Best Sales"
+      type="all"
+      products={products.slice(-8)}
+    />
+  );
 };
 
 export { BestSales };
