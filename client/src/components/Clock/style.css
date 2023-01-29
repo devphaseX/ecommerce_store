@@ -25,3 +25,17 @@
 .clock__wrapper .clock__data:last-child span {
   display: none;
 }
+
+@media only screen and (max-width: 992px) {
+  .clock__wrapper {
+    justify-content: center;
+  }
+
+  .clock__info > h1 {
+    font-size: 1.1rem;
+  }
+
+  .clock__info > h5 {
+    font-size: 0.9rem;
+  }
+}
