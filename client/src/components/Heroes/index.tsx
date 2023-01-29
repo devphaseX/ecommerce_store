@@ -23,7 +23,7 @@ const Heroes = () => {
               <div>
                 <button
                   className="buy_button"
-                  onTransitionEnd={() => navigate('/product')}
+                  onClick={() => navigate('/product')}
                 >
                   Shop now
                 </button>
