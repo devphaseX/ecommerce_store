@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { type ProductData } from '../../components/ProductList/type';
 
 type CartState = {
-  items: Map<CartItem['id'], ItemCartInfo>;
+  items: Partial<Record<CartItem['id'], ItemCartInfo>>;
   totalCost: number;
   totalItemUnits: number;
 };
@@ -20,7 +20,7 @@ interface RemoveItemPayload
   extends PayloadAction<{ id: string; mode: 'all' | number }> {}
 
 const getInitialState = (): CartState => ({
-  items: new Map(),
+  items: {},
   totalCost: 0,
   totalItemUnits: 0,
 });
@@ -32,10 +32,12 @@ const computeCartItemInfo = (items: CartState['items']) => {
     totalItemUnits: 0,
   };
 
-  items.forEach(({ quantity, totalPrice }) => {
-    cartInfo.totalCost += totalPrice;
-    cartInfo.totalItemUnits += quantity;
-  });
+  (Object.values(items) as Array<ItemCartInfo>).forEach(
+    ({ totalPrice, quantity }) => {
+      cartInfo.totalCost += totalPrice;
+      cartInfo.totalItemUnits += quantity;
+    }
+  );
 
   return cartInfo;
 };
@@ -45,7 +47,7 @@ const cartSlice = createSlice({
   initialState: getInitialState(),
   reducers: {
     addItem: (draftState, { payload }: NewItemPayload) => {
-      let itemInfo = draftState.items.get(payload.id);
+      let itemInfo = draftState.items[payload.id];
 
       if (!itemInfo) itemInfo = { ...payload, quantity: 0, totalPrice: 0 };
 
@@ -59,11 +61,11 @@ const cartSlice = createSlice({
         totalItemUnits: draftState.totalItemUnits,
       } = computeCartItemInfo(draftState.items));
 
-      draftState.items.set(payload.id, itemInfo);
+      draftState.items[payload.id] = itemInfo;
     },
 
     removeItem: (draftState, { payload }: RemoveItemPayload) => {
-      let itemInfo = draftState.items.get(payload.id);
+      let itemInfo = draftState.items[payload.id];
       if (!itemInfo) return;
 
       let mode =
@@ -74,16 +76,19 @@ const cartSlice = createSlice({
           : payload.mode;
 
       if (mode === 'all') {
-        draftState.items.delete(payload.id);
-        return { items: new Map(), totalCost: 0, totalItemUnits: 0 };
+        delete draftState.items[payload.id];
+
+        if (Object.keys(draftState.items).length === 0) {
+          return getInitialState();
+        }
       } else {
         itemInfo.quantity -= payload.mode as number;
         itemInfo.totalPrice -= itemInfo.price;
-        return void ({
-          totalCost: draftState.totalCost,
-          totalItemUnits: draftState.totalItemUnits,
-        } = computeCartItemInfo(draftState.items));
       }
+      ({
+        totalCost: draftState.totalCost,
+        totalItemUnits: draftState.totalItemUnits,
+      } = computeCartItemInfo(draftState.items));
     },
 
     clear: () => getInitialState(),
