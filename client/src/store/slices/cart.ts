@@ -38,7 +38,6 @@ const computeCartItemInfo = (items: CartState['items']) => {
       cartInfo.totalItemUnits += quantity;
     }
   );
-
   return cartInfo;
 };
 
@@ -49,7 +48,10 @@ const cartSlice = createSlice({
     addItem: (draftState, { payload }: NewItemPayload) => {
       let itemInfo = draftState.items[payload.id];
 
-      if (!itemInfo) itemInfo = { ...payload, quantity: 0, totalPrice: 0 };
+      if (!itemInfo) {
+        itemInfo = { ...payload, quantity: 0, totalPrice: 0 };
+        draftState.items[itemInfo.id] = itemInfo;
+      }
 
       const { price: itemPrice } = payload;
       itemInfo.quantity += 1;
