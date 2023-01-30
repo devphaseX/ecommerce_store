@@ -75,19 +75,15 @@ const cartSlice = createSlice({
 
       if (mode === 'all') {
         draftState.items.delete(payload.id);
+        return { items: new Map(), totalCost: 0, totalItemUnits: 0 };
       } else {
         itemInfo.quantity -= payload.mode as number;
         itemInfo.totalPrice -= itemInfo.price;
-      }
-
-      if (mode !== 'all') {
         return void ({
           totalCost: draftState.totalCost,
           totalItemUnits: draftState.totalItemUnits,
         } = computeCartItemInfo(draftState.items));
       }
-
-      return { items: new Map(), totalCost: 0, totalItemUnits: 0 };
     },
 
     clear: () => getInitialState(),
