@@ -1,0 +1,15 @@
+.common-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.523), rgba(0, 0, 0, 0.523)),
+    url('../../../assets/images/double-sofa-01.png') no-repeat center center;
+  background-size: contain;
+  padding-block: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.common-section h1 {
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+}
