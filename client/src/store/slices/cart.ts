@@ -62,8 +62,6 @@ const cartSlice = createSlice({
         totalCost: draftState.totalCost,
         totalItemUnits: draftState.totalItemUnits,
       } = computeCartItemInfo(draftState.items));
-
-      draftState.items[payload.id] = itemInfo;
     },
 
     removeItem: (draftState, { payload }: RemoveItemPayload) => {
