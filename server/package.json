@@ -1,11 +1,11 @@
 {
-  "name": "chat-application",
+  "name": "dashboard",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development ts-node-dev --respawn --transpile-only ./src/index.ts",
-    "db_initial": "NODE_ENV=development ts-node-dev --respawn --transpile-only ./src/config/db/initial.ts",
+    "populate_db": "NODE_ENV=development ts-node-dev ./src/server/config/database/populatedDb.ts",
     "prod": "NODE_ENV=production ts-node ./src/server/index.ts",
     "dev:bun": "bun run dev"
   },
@@ -25,13 +25,17 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
-    "body-parser": "^1.20.0",
+    "body-parser": "^1.20.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "country-iso-2-to-3": "^1.1.0",
     "dayjs": "^1.11.6",
     "dotenv": "^16.0.1",
     "express": "^4.18.2",
+    "helmet": "^6.0.1",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.7.3"
+    "mongodb": "^3.7.3",
+    "mongoose": "^6.8.2",
+    "morgan": "^1.10.0"
   }
 }
