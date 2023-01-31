@@ -7,11 +7,13 @@ import './style.css';
 import { pathLink } from '../../../router/route';
 import { useMediaQuery } from '../../../hooks/useMediaQuery';
 import { useState } from 'react';
+import { useTypedSelector } from '../../../store/setup';
 
 const Header = () => {
   const headerRef = useRef<HTMLHeadingElement>(null);
   const matchMobileScreen = useMediaQuery('(max-width: 768px)');
   const [toggleMenu, setToggleMenu] = useState(false);
+  const cartItemUnits = useTypedSelector((state) => state.cart.totalItemUnits);
 
   useEffect(() => {
     if (!headerRef.current) return;
@@ -86,7 +88,7 @@ const Header = () => {
             <div className="action-wrapper">
               <span className="cart__icon">
                 <i className="ri-shopping-bag-line"></i>
-                <span className="badge">10</span>
+                <span className="badge">{cartItemUnits}</span>
               </span>
             </div>
 
