@@ -1,4 +1,6 @@
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { cartActions } from '../../../store/slices/';
 import './style.css';
 type ProductData =
   typeof import('../../../assets/data/products').default[number];
@@ -8,6 +10,8 @@ type ProductCardProps = {
 };
 const ProductCard = ({ data }: ProductCardProps) => {
   const { imgUrl, productName, category, price, id } = data;
+  const dispatch = useDispatch();
+
   return (
     <div className="product__item">
       <div className="product__img">
@@ -24,7 +28,12 @@ const ProductCard = ({ data }: ProductCardProps) => {
       </div>
       <div className="product__card-bottom">
         <span className="price">${price}</span>
-        <span className="inc-add-button">
+        <span
+          className="inc-add-button"
+          onClick={() =>
+            dispatch(cartActions.addItem({ id, imgUrl, price, productName }))
+          }
+        >
           <i className="ri-add-line"></i>
         </span>
       </div>
