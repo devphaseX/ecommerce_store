@@ -1,0 +1,55 @@
+.shop__row {
+  display: grid;
+  grid-template-columns: 3fr 3fr 6fr;
+  margin-block: 64px;
+}
+
+.shop__row select {
+  padding: 8px 20px;
+  outline: none;
+  border: 1px solid var(--primary-color);
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.shop__row select:focus {
+  outline: none;
+}
+
+.shop__row select option {
+  font-size: 0.9rem;
+}
+
+:is(.filter__widget, .sort__widget) {
+  flex: 1;
+}
+
+.search__box {
+  flex: 5;
+}
+
+.search__box {
+  position: relative;
+}
+
+.search__box input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-block: 8px;
+  padding-left: 10px;
+  border: 2px solid var(--primary-color);
+  outline: none;
+}
+
+.search__box span {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--primary-color);
+}
