@@ -1,4 +1,3 @@
-import { PlainErrorWithCause } from '../controller/shared.types';
 import { getEnvVariable } from '../server/config/env/index';
 
 class UnhandledRejection extends Error {
@@ -24,10 +23,10 @@ const resolveError = (error: unknown) =>
     : error;
 
 const prepareError = <ErrorCause>(
-  e: unknown,
+  message: string,
   cause?: ErrorCause
-): PlainErrorWithCause<ErrorCause> => ({
-  message: resolveError(e),
+): PlainErrorWithCause<ErrorCause> & { message: string } => ({
+  message,
   ...(getEnvVariable().NODE_ENV === 'development' ? { cause } : null),
 });
 

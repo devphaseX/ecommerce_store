@@ -6,4 +6,4 @@ const ReviewSchema = new mongoose.Schema({
   productId: { type: String, require: true },
 });
 
-export const Review = mongoose.model('Product', ReviewSchema);
+export const Review = mongoose.model('Review', ReviewSchema);

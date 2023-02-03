@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import { getEnvVariable } from '../env';
 const { DB_URL } = getEnvVariable();
 
+import './sample/assets/data/products';
+
 function startDbServer() {
   return mongoose.connect(DB_URL).then(
     (instance) => {
