@@ -2,12 +2,14 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { cartActions } from '../../../store/slices/';
 import './style.css';
+import { createBrowserComplianceUrl } from '../../../util';
 type ProductData =
   typeof import('../../../assets/data/products').default[number];
 
 type ProductCardProps = {
   data: ProductData;
 };
+
 const ProductCard = ({ data }: ProductCardProps) => {
   const { imgUrl, productName, category, price, id } = data;
   const dispatch = useDispatch();
@@ -16,7 +18,7 @@ const ProductCard = ({ data }: ProductCardProps) => {
     <div className="product__item">
       <div className="product__img">
         <img
-          src={imgUrl}
+          src={createBrowserComplianceUrl(imgUrl)}
           alt={`image for the product with the name ${productName}`}
         />
       </div>
