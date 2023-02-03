@@ -35,13 +35,8 @@ const routeObject = {
   children: [
     { path: '/', element: <Home /> },
     { path: '/home', element: <Navigate to="/" /> },
-    {
-      element: <AuthGrantRoute />,
-      children: [
-        { path: '/login', element: <Login /> },
-        { path: '/signup', element: <Signup /> },
-      ],
-    },
+    { path: '/login', element: <Login /> },
+    { path: '/signup', element: <Signup /> },
     {
       path: '/product',
       children: [
@@ -50,7 +45,10 @@ const routeObject = {
       ],
     },
     { path: '/cart', element: <Cart /> },
-    { path: '/checkout', element: <Checkout /> },
+    {
+      element: <AuthGrantRoute />,
+      children: [{ path: '/checkout', element: <Checkout /> }],
+    },
   ],
 } satisfies RouteObject;
 
