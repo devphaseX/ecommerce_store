@@ -6,7 +6,6 @@ const ProductSchema = new mongoose.Schema(
     imgUrl: { type: String, require: true },
     category: { type: String, require: true },
     shortDesc: { type: String, require: true },
-    reviews: { type: [String] },
     avgRating: Number,
   },
   { timestamps: true }
@@ -14,12 +13,23 @@ const ProductSchema = new mongoose.Schema(
 
 const Product = mongoose.model('Product', ProductSchema);
 type ProductData = InferSchemaType<typeof Product.schema>;
-type ProductFormData = Omit<
-  ProductData,
-  ServerGenField | 'reviews' | 'avgRating'
->;
+type ProductServerGenField =
+  | SharedServerGenField
+  | 'reviews'
+  | 'avgRating'
+  | 'imgUrl';
+type ProductFormData = Omit<ProductData, ProductServerGenField>;
 
-enum Category {}
+type CategoryEntry = 'wireless' | 'mobile' | 'chair' | 'watch' | 'sofa';
+type ProductCategory = { readonly [K in CategoryEntry]: K };
 
-export { Category, Product };
-export type { ProductData, ProductFormData };
+const category: ProductCategory = {
+  wireless: 'wireless',
+  chair: 'chair',
+  mobile: 'mobile',
+  watch: 'watch',
+  sofa: 'sofa',
+};
+
+export { Product, category };
+export type { ProductData, ProductFormData, ProductCategory, CategoryEntry };

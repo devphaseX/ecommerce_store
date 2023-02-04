@@ -1,9 +1,12 @@
 import mongoose, { InferSchemaType } from 'mongoose';
 
-const ImageSchema = new mongoose.Schema({
-  name: { type: String, require: true },
-  data: { data: Buffer, contentType: String },
-});
+const ImageSchema = new mongoose.Schema(
+  {
+    name: { type: String, require: true },
+    data: { data: Buffer, contentType: String },
+  },
+  { timestamps: true }
+);
 
 type ImageData = InferSchemaType<typeof ImageSchema>;
 

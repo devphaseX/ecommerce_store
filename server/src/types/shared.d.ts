@@ -28,7 +28,7 @@ declare global {
           : PlainErrorWithCause<Error>);
       };
 
-  type ServerGenField = 'createdAt' | 'updatedAt' | 'imgUrl';
+  type SharedServerGenField = 'createdAt' | 'updatedAt';
 
   type Expand<T> = T extends infer O ? { [K in keyof O]: O[K] } : never;
 
@@ -55,4 +55,10 @@ declare global {
         : true
       : false
     : boolean;
+
+  type StringifyNumber = `${number}`;
+  interface ParsedQueryBase extends qs.ParsedQs {
+    limit?: StringifyNumber;
+    skip?: StringifyNumber;
+  }
 }
