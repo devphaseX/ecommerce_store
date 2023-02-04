@@ -1,16 +1,8 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { unwrapResponseData, getCustomBaseUrl } from './api.base';
+import { ProductData } from '../../components/ProductList/type';
 
-type Product = {
-  createdAt: NativeDate;
-  updatedAt: NativeDate;
-  reviews: string[];
-  avgRating?: number | undefined;
-  productName?: string | undefined;
-  imgUrl?: string | undefined;
-  category?: string | undefined;
-  shortDesc?: string | undefined;
-};
+type ShowCaseProductData = Omit<ProductData, 'reviews'>;
 
 const productApi = createApi({
   baseQuery: getCustomBaseUrl,
@@ -20,13 +12,13 @@ const productApi = createApi({
     getAllProduct: build.query({
       query: (_: void) => '/product',
       providesTags: ['Products'],
-      transformResponse: unwrapResponseData<Array<Product>>,
+      transformResponse: unwrapResponseData<Array<ShowCaseProductData>>,
     }),
 
     getTrendingProduct: build.query({
-      query: () => '/product?stat=trending',
+      query: (queryParams: { limit?: number }) => '/product?stat=trending&',
       providesTags: ['Products/Trend'],
-      transformResponse: unwrapResponseData<Array<Product>>,
+      transformResponse: unwrapResponseData<Array<ShowCaseProductData>>,
     }),
   }),
 });
@@ -34,3 +26,4 @@ const productApi = createApi({
 export { productApi };
 
 export const { useGetAllProductQuery, useGetTrendingProductQuery } = productApi;
+export type { ShowCaseProductData };
