@@ -10,8 +10,10 @@ async function imageUpload(req: Request<any, any, any>) {
     throw new Error('Image file cannot be found on the request object');
   }
 
+  const uniqueNameComponents = req.file.originalname.split('.');
+  uniqueNameComponents.splice(-1, 0, Math.random().toString(32).slice(3, 8));
   return Image.create({
-    name: req.file.originalname,
+    name: uniqueNameComponents.join('.'),
     data: { contentType: req.file.mimetype, data: req.file.buffer },
   });
 }
