@@ -14,7 +14,7 @@ type Product = {
 
 const productApi = createApi({
   baseQuery: getCustomBaseUrl,
-  tagTypes: ['Products'],
+  tagTypes: ['Products', 'Products/Trend'],
   reducerPath: 'productApi',
   endpoints: (build) => ({
     getAllProduct: build.query({
@@ -22,9 +22,15 @@ const productApi = createApi({
       providesTags: ['Products'],
       transformResponse: unwrapResponseData<Array<Product>>,
     }),
+
+    getTrendingProduct: build.query({
+      query: () => '/product?stat=trending',
+      providesTags: ['Products/Trend'],
+      transformResponse: unwrapResponseData<Array<Product>>,
+    }),
   }),
 });
 
 export { productApi };
 
-export const { useGetAllProductQuery } = productApi;
+export const { useGetAllProductQuery, useGetTrendingProductQuery } = productApi;
