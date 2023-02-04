@@ -120,7 +120,7 @@ const getAllProduct: GetAllProductHandler = async (req, res) => {
       default: {
         const query = { ...req.query };
         if (selectOption === 'newly') {
-          req.query.order = 'descending';
+          query.order = 'descending';
         }
 
         let productQuery = getClientProductQuery(query);
@@ -150,8 +150,8 @@ type CreateProductHandler = RequestHandler<
 const createProduct: CreateProductHandler = async (req, res) => {
   try {
     const image = await imageUpload(req);
+    console.log(req.body);
     const productData = await productFormSchema.parse(req.body);
-
     const product = await Product.create({
       ...productData,
       imgUrl: `${req.headers.host}/${image.name}`,
@@ -166,6 +166,7 @@ const createProduct: CreateProductHandler = async (req, res) => {
 
     return res.status(201).json({ status: 'success', data: product.toJSON() });
   } catch (e) {
+    console.log(e);
     return res.status(400).json({
       status: 'failed',
       error: prepareError(
