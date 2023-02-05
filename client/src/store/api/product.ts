@@ -16,7 +16,10 @@ const productApi = createApi({
     }),
 
     getTrendingProduct: build.query({
-      query: (queryParams: { limit?: number }) => '/product?stat=trending&',
+      query: (queryParams: { limit?: number }) =>
+        `/product?stat=trending${
+          queryParams.limit ? `&limit=${queryParams.limit}` : ''
+        }`,
       providesTags: ['Products/Trend'],
       transformResponse: unwrapResponseData<Array<ShowCaseProductData>>,
     }),
