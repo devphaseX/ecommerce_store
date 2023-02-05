@@ -1,5 +1,5 @@
 import products from './products';
-import { createBrowserComplianceUrl } from '../../util';
+import { ignoreScrRefPath } from '../../util';
 
 (async () => {
   await Promise.all(
@@ -18,10 +18,26 @@ import { createBrowserComplianceUrl } from '../../util';
         'image',
         new File([imageBlob], filename, { type: imageBlob.type })
       );
-      return fetch(createBrowserComplianceUrl('localhost:5001/product'), {
+
+      return fetch(ignoreScrRefPath('localhost:5001/product'), {
         body: formData,
         method: 'POST',
-      });
+      }).then((res) =>
+        res.json().then(({ data }) => {
+          return Promise.all<any>(
+            product.reviews.map((review) => {
+              return fetch(
+                ignoreScrRefPath(`localhost:5001/review/${data._id}`),
+                {
+                  method: 'POST',
+                  body: JSON.stringify(review),
+                  headers: { 'Content-Type': 'application/json' },
+                }
+              ).then((response) => response.json());
+            })
+          );
+        })
+      );
     })
   );
 })().then(
