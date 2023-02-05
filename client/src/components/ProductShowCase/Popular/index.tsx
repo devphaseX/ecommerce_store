@@ -1,14 +1,16 @@
 import { ProductShowCase } from '..';
-import products from '../../../assets/data/products';
+import { useGetPopularProductQuery } from '../../../store/api/product';
 
-const PopularProducts = () => (
-  <ProductShowCase
-    title="Popular Products"
-    type="all"
-    products={products.filter(
-      ({ category }) => category.toLowerCase() === 'watch'
-    )}
-  />
-);
+const PopularProducts = () => {
+  const { data, isLoading } = useGetPopularProductQuery({ limit: 4 });
+  return (
+    <ProductShowCase
+      title="Popular Products"
+      type="all"
+      products={data}
+      isLoading={isLoading}
+    />
+  );
+};
 
 export { PopularProducts };

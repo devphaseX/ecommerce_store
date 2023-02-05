@@ -3,22 +3,17 @@ import { ProductShowCase } from '..';
 import products from '../../../assets/data/products';
 import { ProductData } from '../../ProductList/type';
 import type { ProductByProperty } from '../index';
+import { useGetNewArrivalProductQuery } from '../../../store/api/product';
 
 const NewArrival = () => {
-  const newRelease = useRef<ProductByProperty>({
-    'category:mobile': products.filter(
-      (product) => product.category.toLowerCase() === 'mobile'
-    ),
-    'category:wireless': products.filter(
-      (product) => product.category.toLowerCase() === 'wireless'
-    ),
-  }).current;
-
+  const { data, isLoading } = useGetNewArrivalProductQuery({ limit: 12 });
+  console.log(data);
   return (
     <ProductShowCase
+      isLoading={isLoading}
       title="New Arrivals"
-      type="property"
-      products={newRelease}
+      type="all"
+      products={data}
     />
   );
 };
