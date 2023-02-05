@@ -150,8 +150,7 @@ type CreateProductHandler = RequestHandler<
 const createProduct: CreateProductHandler = async (req, res) => {
   try {
     const image = await imageUpload(req);
-    console.log(req.body);
-    const productData = await productFormSchema.parse(req.body);
+    const productData = productFormSchema.parse(req.body);
     const product = await Product.create({
       ...productData,
       imgUrl: `${req.headers.host}/${image.name}`,
