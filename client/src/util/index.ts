@@ -1,8 +1,14 @@
-function createBrowserComplianceUrl(url: string): string {
-  if (/\/?src/.test(url)) return url;
+function createBrowserComplianceUrl(
+  url: string,
+  whiteList: Array<string | RegExp>
+): string {
+  if (whiteList.some((ignore) => new RegExp(ignore).test(url))) return url;
   return url
-    .replace(/localhost/i, '127.0.0.1')
-    .replace(/^(?:http(?:|s))?(.*)/, String.raw`${location.protocol}//$1`);
+    .replace(/^(https?:\/{2})?/i, String.raw`${location.protocol}//`)
+    .replace(/localhost/i, '127.0.0.1');
 }
 
-export { createBrowserComplianceUrl };
+export { createBrowserComplianceUrl, ignoreScrRefPath };
+
+const ignoreScrRefPath = (url: string) =>
+  createBrowserComplianceUrl(url, [/^\/?src/i]);
