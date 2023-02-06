@@ -1,7 +1,7 @@
 .shop__row {
   display: grid;
   grid-template-columns: 3fr 3fr 6fr;
-  margin-block: 64px;
+  margin-block: 64px 0;
 }
 
 .shop__row select {
