@@ -1,3 +1,4 @@
+import { ParamsDictionary } from 'express-serve-static-core';
 import { RequestHandler } from 'express';
 import {
   category,
@@ -13,13 +14,16 @@ import {
 import { prepareError } from '../util/error';
 
 import { imageUpload } from './file/upload';
-import { SortOrder } from 'mongoose';
+import { FilterQuery, SortOrder } from 'mongoose';
+import { query } from 'express';
+import { z } from 'zod';
 
 interface ProductQuery extends ParsedQueryBase {
   stat?: 'trending' | 'best-sales' | 'newly';
   category?: CategoryEntry;
   review?: `${boolean}`;
   order?: `${Exclude<SortOrder, 'asc' | 'desc'>}`;
+  search?: string;
 }
 
 type GetAllProductHandler = RequestHandler<
@@ -68,10 +72,35 @@ function getClientProductStatQuery(query?: ProductQuery) {
   return productQuery;
 }
 
+const clientQuerySchema = z.object<ExtensibleZodShape<ProductQuery>>({
+  limit: z.number({ coerce: true }).optional(),
+  category: z.nativeEnum(category).optional(),
+  order: z
+    .enum(['ascending', 'descending'] as ['ascending', 'descending'])
+    .optional(),
+  search: z.string().optional(),
+  skip: z.number({ coerce: true }).optional(),
+  stat: z
+    .enum(['trending', 'best-sales', 'newly'] as [
+      'trending',
+      'best-sales',
+      'newly'
+    ])
+    .optional(),
+});
+
 function getClientProductQuery(query?: ProductQuery) {
-  let productQuery = query?.category
-    ? Product.find({ category: query.category })
-    : Product.find();
+  query = query ? clientQuerySchema.parse(query) : query;
+  let filterQuery: FilterQuery<ProductData> = {
+    ...(query?.search
+      ? { productName: { $regex: new RegExp(query.search, 'i') } }
+      : null),
+    ...(query?.category
+      ? { category: { $regex: new RegExp(query.category, 'i') } }
+      : null),
+  };
+
+  let productQuery = Product.find(filterQuery);
 
   if (query) {
     if (query.limit) {
@@ -86,6 +115,7 @@ function getClientProductQuery(query?: ProductQuery) {
       query.order &&
       ['ascending', 'descending', '1', '-1'].includes(query.order)
     ) {
+      console.log('query by order');
       productQuery = productQuery.sort([
         ['createdAt', query.order as SortOrder],
       ]);
@@ -141,6 +171,33 @@ const getAllProduct: GetAllProductHandler = async (req, res) => {
   }
 };
 
+const getProductQuerySchema = z.object<ExtensibleZodShape<GetProductQuery>>({
+  productName: z.string(),
+  productId: z.string(),
+});
+interface GetProductQuery extends ParamsDictionary {
+  productName: string;
+  productId: string;
+}
+type GetProductResponse = ServerResponse<
+  ProductData | null,
+  any,
+  ACTIVE_ON_DEV
+>;
+type GetProductHandler = RequestHandler<GetProductQuery, GetProductResponse>;
+
+const getProduct: GetProductHandler = async (req, res) => {
+  try {
+    const params = getProductQuerySchema.parse(req.params) as GetProductQuery;
+    const product = await Product.findOne({ _id: params.productId });
+    return res.status(201).json({ status: 'success', data: product });
+  } catch (e) {
+    return res
+      .status(402)
+      .json({ status: 'failed', error: prepareError(e as any) });
+  }
+};
+
 type CreateProductHandler = RequestHandler<
   any,
   ServerResponse<DataWithId<ProductData>, any, ACTIVE_ON_DEV>,
@@ -184,4 +241,4 @@ type GetSupportProductCategoryHandler = RequestHandler<
 const getSupportProductCatory: GetSupportProductCategoryHandler = (_, res) =>
   res.status(201).json({ status: 'success', data: category });
 
-export { getAllProduct, createProduct, getSupportProductCatory };
+export { getAllProduct, createProduct, getSupportProductCatory, getProduct };
