@@ -1,5 +1,4 @@
 import { ProductShowCase } from '../';
-import products from '../../../assets/data/products';
 import { useGetBestSalesProductQuery } from '../../../store/api/product';
 
 const BestSales = () => {

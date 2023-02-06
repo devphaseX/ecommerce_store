@@ -32,9 +32,11 @@ const ProductShowCase = (props: ProductShowCaseProps) => {
     <section className="showcase section-block-padding">
       <div className="showcase__container section-width">
         <div className="showcase__row">
-          <div>
-            <h2 className="section-title showcase-title">{props.title}</h2>
-          </div>
+          {props.title.trim() !== '' && (
+            <div>
+              <h2 className="section-title showcase-title">{props.title}</h2>
+            </div>
+          )}
           {(() => {
             if (props.isLoading) return <div>Loading...</div>;
             if (props.products) {
@@ -42,7 +44,10 @@ const ProductShowCase = (props: ProductShowCaseProps) => {
                 props.type === 'all'
                   ? [['all', props.products]]
                   : Object.entries(props.products)
-              ) as ['all' | keyof ProductData, Array<ProductData>][];
+              ) as [
+                'all' | keyof ShowCaseProductData,
+                Array<ShowCaseProductData>
+              ][];
 
               return (
                 <div className="showcase__products">

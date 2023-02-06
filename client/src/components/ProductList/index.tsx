@@ -1,14 +1,14 @@
+import { ShowCaseProductData } from '../../store/api/product';
 import { ProductCard } from './ProductCard';
-import type { ProductData } from './type';
 
 type ProductListProps = {
-  productsData: Array<ProductData>;
+  productsData: Array<ShowCaseProductData>;
 };
 const ProductList = ({ productsData }: ProductListProps) => {
   return (
     <>
       {productsData.map((productData) => (
-        <ProductCard key={productData.id} data={productData} />
+        <ProductCard key={productData._id} data={productData} />
       ))}
     </>
   );

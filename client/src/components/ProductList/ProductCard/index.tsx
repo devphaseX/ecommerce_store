@@ -2,12 +2,13 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { cartActions } from '../../../store/slices/';
 import './style.css';
-import { createBrowserComplianceUrl } from '../../../util';
+import { ignoreScrRefPath } from '../../../util';
+import { ShowCaseProductData } from '../../../store/api/product';
 type ProductData =
   typeof import('../../../assets/data/products').default[number];
 
 type ProductCardProps = {
-  data: ProductData;
+  data: ShowCaseProductData;
 };
 
 const ProductCard = ({ data }: ProductCardProps) => {
@@ -18,7 +19,7 @@ const ProductCard = ({ data }: ProductCardProps) => {
     <div className="product__item">
       <div className="product__img">
         <img
-          src={createBrowserComplianceUrl(imgUrl)}
+          src={ignoreScrRefPath(imgUrl)}
           alt={`image for the product with the name ${productName}`}
         />
       </div>
